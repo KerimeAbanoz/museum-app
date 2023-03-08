@@ -3,8 +3,10 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
+  const navigate = useNavigate();
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -33,6 +35,7 @@ export default function Navbar() {
               }}
               size="large"
               edge="end"
+              onClick={() => navigate("favourites")}
             >
               Favourites
             </button>

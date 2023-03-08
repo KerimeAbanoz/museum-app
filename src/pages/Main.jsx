@@ -5,33 +5,16 @@ import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import SearchIcon from "@mui/icons-material/Search";
 
 const API = "https://collectionapi.metmuseum.org/public/collection/v1/objects";
-
+const searchAPI =
+  "https://collectionapi.metmuseum.org/public/collection/v1/search?q=";
 // const denemearray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
-const denemearray = [457, 4656, 5678, 567, 123, 345, 57, 7890, 7756];
+const denemearray = [4577, 4656, 5678, 567, 123, 345, 57, 7890, 7756];
 
 const Main = () => {
-  // const [artWorks, setArtWorks] = useState([]);
+  const [artWorks, setArtWorks] = useState([]);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  // function getArtWorks() {
-  //   setLoading(true);
-
-  //   axios
-  //     .get(API)
-  //     .then((res) => {
-  //       console.log(res?.data?.objectIDs);
-  //       setArtWorks(res?.data?.objectIDs);
-  //       setData((data) => [...data, res.data]);
-  //       // getSpecificArtWork();
-  //       setLoading(false);
-  //     })
-  //     // .then(artWorks.slice(0, 10).forEach((id) => getSpecificArtWork(id)))
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  //   setLoading(false);
-  // }
+  const [searchValue, setSearchValue] = useState("");
 
   const getSpecificArtWork = async () => {
     setLoading(true);
@@ -39,7 +22,7 @@ const Main = () => {
       axios
         .get(API + "/" + id)
         .then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
           setData((data) => [...data, res.data]);
         })
         .catch((error) => {
@@ -47,6 +30,30 @@ const Main = () => {
         })
     );
     setLoading(false);
+  };
+
+  const getArtWorks = async () => {
+    setLoading(true);
+    axios
+      .get(searchAPI + searchValue)
+      .then((res) => {
+        setArtWorks(res?.data?.objectIDs);
+        console.log(res?.data?.objectIDs);
+        // setData((data) => [...data, res.data]);
+        // getSpecificArtWork();
+        // setLoading(false);
+      })
+      // .then(artWorks.slice(0, 10).forEach((id) => getSpecificArtWork(id)))
+      .catch((error) => {
+        console.log(error);
+      });
+    setLoading(false);
+  };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    getArtWorks(searchAPI + searchValue);
+    console.log(searchValue);
   };
 
   useEffect(() => {
@@ -58,10 +65,10 @@ const Main = () => {
   //   console.log(data);
   // }, [data]);
 
-  if (loading) {
-    console.log(loading);
-    // return <h1>HELLO</h1>;
-  }
+  // if (loading) {
+  // console.log(loading);
+  // return <h1>HELLO</h1>;
+  // }
 
   return (
     <>
@@ -71,6 +78,7 @@ const Main = () => {
           justifyContent: "center",
           padding: "0.5rem",
         }}
+        onSubmit={(e) => handleSearch(e)}
       >
         <input
           type="search"
@@ -83,6 +91,8 @@ const Main = () => {
             padding: "4px",
             margin: "0.5rem",
           }}
+          value={searchValue}
+          onChange={(e) => setSearchValue(e.target.value)}
         />
         <SearchIcon
           style={{ fontSize: "2rem", margin: "1rem", color: "white" }}

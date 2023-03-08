@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Main from "../pages/Main";
 import ArtDetail from "../pages/ArtDetail";
+import Favourites from "../pages/Favourites";
 
 const AppRouter = () => {
   return (
@@ -10,9 +11,8 @@ const AppRouter = () => {
       <Navbar />
       <Routes>
         <Route path="/" element={<Main />} />
-        {/* <Route path="/details/:id" element={<PrivateRouter />}> */}
         <Route path="/details/:id" element={<ArtDetail />} />
-        {/* </Route> */}
+        <Route path="/favourites" element={<Favourites />} />
       </Routes>
     </BrowserRouter>
   );
