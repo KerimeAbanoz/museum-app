@@ -12,12 +12,30 @@ const denemearray = [4577, 4656, 5678, 567, 123, 345, 57, 7890, 7756];
 
 const Main = () => {
   const [data, setData] = useState([]);
+  const [dataIds, setDataIds] = useState([]);
+
   const [loading, setLoading] = useState(true);
   const [searchValue, setSearchValue] = useState("");
 
+  const getAllArtWorkIds = () => {
+    axios
+      .get(API)
+      .then((res) => {
+        // setDataIds((dataIds) => res.data);
+        setData((data) => [...data, res.data]);
+        console.log(data);
+        // console.log(res.data.objectIDs);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  // getAllArtWorkIds();
   const getSpecificArtWork = async () => {
     setLoading(true);
-    denemearray.forEach((id) =>
+    dataIds.forEach((id) => {
+      // console.log(id);
       axios
         .get(API + "/" + id)
         .then((res) => {
@@ -26,13 +44,14 @@ const Main = () => {
         })
         .catch((error) => {
           console.log(error);
-        })
-    );
-    setLoading(false);
+        });
+      setLoading(false);
+    });
   };
 
   useEffect(() => {
-    getSpecificArtWork();
+    getAllArtWorkIds();
+    // getSpecificArtWork();
   }, []);
 
   const getArtWorkBySearch = async () => {
@@ -40,8 +59,11 @@ const Main = () => {
     axios
       .get(searchAPI + searchValue)
       .then((res) => {
-        console.log(res?.data?.objectIDs);
+        console.log(res?.data?.total);
         setData((data) => [...data, res.data?.objectIDs]);
+        // setData((denemearray) => res.data.objectIDs);
+        // console.log(denemearray);
+        getSpecificArtWork();
       })
       .catch((error) => {
         console.log(error);
