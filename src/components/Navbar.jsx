@@ -9,26 +9,30 @@ export default function Navbar() {
   const navigate = useNavigate();
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="static" style={{ background: "#14532d" }}>
         <Toolbar>
-          <Link
-            to="/"
+          <button
+            onClick={() => navigate("/")}
             variant="h6"
-            component="div"
             style={{
-              display: { xs: "none", sm: "block" },
-              textDecoration: "none",
+              color: "white",
+              background: "transparent",
+              padding: "1rem 2rem 1rem 0",
+              border: "none",
+              fontSize: "1rem",
+              cursor: "pointer",
             }}
           >
             Metropolitan Museum of Art Collection
-          </Link>
+          </button>
 
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: "flex" }}>
             <button
               style={{
+                color: "white",
                 background: "transparent",
-                padding: "1rem 2rem",
+                padding: "1rem",
                 border: "none",
                 fontSize: "1rem",
                 cursor: "pointer",

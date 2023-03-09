@@ -7,11 +7,10 @@ import SearchIcon from "@mui/icons-material/Search";
 const API = "https://collectionapi.metmuseum.org/public/collection/v1/objects";
 const searchAPI =
   "https://collectionapi.metmuseum.org/public/collection/v1/search?q=";
-// const denemearray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+
 const denemearray = [4577, 4656, 5678, 567, 123, 345, 57, 7890, 7756];
 
 const Main = () => {
-  const [artWorks, setArtWorks] = useState([]);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchValue, setSearchValue] = useState("");
@@ -32,18 +31,18 @@ const Main = () => {
     setLoading(false);
   };
 
-  const getArtWorks = async () => {
+  useEffect(() => {
+    getSpecificArtWork();
+  }, []);
+
+  const getArtWorkBySearch = async () => {
     setLoading(true);
     axios
       .get(searchAPI + searchValue)
       .then((res) => {
-        setArtWorks(res?.data?.objectIDs);
         console.log(res?.data?.objectIDs);
-        // setData((data) => [...data, res.data]);
-        // getSpecificArtWork();
-        // setLoading(false);
+        setData((data) => [...data, res.data?.objectIDs]);
       })
-      // .then(artWorks.slice(0, 10).forEach((id) => getSpecificArtWork(id)))
       .catch((error) => {
         console.log(error);
       });
@@ -52,23 +51,9 @@ const Main = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    getArtWorks(searchAPI + searchValue);
+    getArtWorkBySearch(searchAPI + searchValue);
     console.log(searchValue);
   };
-
-  useEffect(() => {
-    // getArtWorks(API);
-    getSpecificArtWork();
-  }, []);
-
-  // useEffect(() => {
-  //   console.log(data);
-  // }, [data]);
-
-  // if (loading) {
-  // console.log(loading);
-  // return <h1>HELLO</h1>;
-  // }
 
   return (
     <>
@@ -86,40 +71,33 @@ const Main = () => {
           style={{
             width: "20rem",
             height: "2rem",
+            border: "none",
             borderRadius: "6px",
             outline: "2px solid transparent",
             padding: "4px",
             margin: "0.5rem",
+            boxShadow: "1px 1px 5px 1px #d1e3d8",
           }}
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
         />
         <SearchIcon
-          style={{ fontSize: "2rem", margin: "1rem", color: "white" }}
+          style={{ fontSize: "2rem", margin: "1rem 0", color: "#14532d" }}
         />
         <button
           type="submit"
           style={{
-            color: "white",
+            color: "#14532d",
             backgroundColor: "transparent",
             border: "none",
+            cursor: "pointer",
           }}
         >
           Search
         </button>
         <FilterAltIcon
-          style={{ fontSize: "2rem", margin: "1rem", color: "white" }}
+          style={{ fontSize: "2rem", margin: "1rem", color: "#14532d" }}
         />
-        <button
-          type="submit"
-          style={{
-            color: "white",
-            backgroundColor: "transparent",
-            border: "none",
-          }}
-        >
-          Filter
-        </button>
       </form>
 
       <div

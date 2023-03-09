@@ -1,57 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import SearchIcon from "@mui/icons-material/Search";
 
 const Favourites = () => {
+  const [items, setItems] = useState(
+    JSON.parse(localStorage.getItem("items")) || []
+  );
+
   return (
     <div>
-      {" "}
-      <form
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          padding: "0.5rem",
-        }}
-      >
-        <input
-          type="search"
-          placeholder="Search"
-          style={{
-            width: "20rem",
-            height: "2rem",
-            borderRadius: "6px",
-            outline: "2px solid transparent",
-            padding: "4px",
-            margin: "0.5rem",
-          }}
-        />
-        <SearchIcon
-          style={{ fontSize: "2rem", margin: "1rem", color: "white" }}
-        />
-        <button
-          type="submit"
-          style={{
-            color: "white",
-            backgroundColor: "transparent",
-            border: "none",
-          }}
-        >
-          Search
-        </button>
-        <FilterAltIcon
-          style={{ fontSize: "2rem", margin: "1rem", color: "white" }}
-        />
-        <button
-          type="submit"
-          style={{
-            color: "white",
-            backgroundColor: "transparent",
-            border: "none",
-          }}
-        >
-          Filter
-        </button>
-      </form>
+      <div>
+        <h2>All items</h2>
+        <ul>
+          {items.map((item) => (
+            <li key={item.id}>{item.name}</li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };

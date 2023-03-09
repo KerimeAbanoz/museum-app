@@ -9,7 +9,7 @@ const ArtDetail = () => {
   const [ArtDetail, setArtDetail] = useState("");
   const { id } = useParams();
 
-  const { title, poster_path } = ArtDetail;
+  const { title } = ArtDetail;
 
   useEffect(() => {
     axios
