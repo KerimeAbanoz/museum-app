@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import formPhoto from "../assets/formPhoto.png";
 
 const ArtDetail = () => {
   const API =
@@ -19,7 +20,19 @@ const ArtDetail = () => {
   }, []);
 
   return (
-    <div className="container px-10 mx-auto py-5">
+    <div
+      style={{
+        backgroundImage: `url(${formPhoto})`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        backgroundAttachment: "fixed",
+        minHeight: "40vh",
+        display: "flex",
+        justifyContent: "center",
+        padding: "0.5rem",
+      }}
+      className="container px-10 mx-auto py-5"
+    >
       <div className="container flex justify-center px-10">
         <div className="flex flex-col lg:flex-row max-w-6xl rounded-lg bg-gray-100 shadow-lg">
           <img

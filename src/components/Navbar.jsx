@@ -8,8 +8,18 @@ import { useNavigate } from "react-router-dom";
 export default function Navbar() {
   const navigate = useNavigate();
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" style={{ background: "#14532d" }}>
+    <Box
+      sx={{ flexGrow: 1 }}
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        width: "100%",
+        padding: "10px",
+        zIndex: 1,
+      }}
+    >
+      <AppBar position="static" style={{ background: "#263963" }}>
         <Toolbar>
           <button
             onClick={() => navigate("/")}
