@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import SearchIcon from "@mui/icons-material/Search";
-import formPhoto from "../assets/formPhoto.png";
+import coverPhoto from "../assets/coverPhoto.png";
 
 const Favourites = () => {
   const [items, setItems] = useState(
@@ -12,7 +12,7 @@ const Favourites = () => {
     <div>
       <div
         style={{
-          backgroundImage: `url(${formPhoto})`,
+          backgroundImage: `url(${coverPhoto})`,
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           backgroundAttachment: "fixed",

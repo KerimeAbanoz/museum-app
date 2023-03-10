@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import formPhoto from "../assets/formPhoto.png";
+import coverPhoto from "../assets/coverPhoto.png";
 
 const ArtDetail = () => {
   const API =
@@ -22,7 +22,7 @@ const ArtDetail = () => {
   return (
     <div
       style={{
-        backgroundImage: `url(${formPhoto})`,
+        backgroundImage: `url(${coverPhoto})`,
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         backgroundAttachment: "fixed",

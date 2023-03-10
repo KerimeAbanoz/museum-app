@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import SearchIcon from "@mui/icons-material/Search";
 import useGetWorks from "../hooks/useGetWorks";
-import formPhoto from "../assets/formPhoto.png";
+import coverPhoto from "../assets/coverPhoto.png";
 import { useNavigate } from "react-router-dom";
 
 const departmentAPI =
@@ -102,7 +102,7 @@ const Main = () => {
     <div>
       <form
         style={{
-          backgroundImage: `url(${formPhoto})`,
+          backgroundImage: `url(${coverPhoto})`,
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           backgroundAttachment: "fixed",
