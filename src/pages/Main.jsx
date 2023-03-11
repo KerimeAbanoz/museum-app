@@ -15,40 +15,14 @@ const defaultImage =
 
 const Main = () => {
   const [data, setData] = useState([]);
-  const [search, setSearch] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [loading, setLoading] = useState(true);
+  const [results, setResults] = useState([]);
   const navigate = useNavigate();
 
-  // const [dataIds, setDataIds] = useState([]);
   useEffect(() => {
-    getDepartments(departmentAPI);
-
-    // getSpecificArtWork();
+    getArts(departmentAPI);
   }, []);
-
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
-
-  const getDepartments = (API) => {
-    setLoading(true);
-    axios
-      .get(API)
-      .then((res) => {
-        // setDataIds((dataIds) => res.data);
-        // setData((data) => [...data, res.data]);
-        // setData(res?.data.department);
-        setData(res.data.departments);
-        // console.log(data);
-        console.log(res.data.objectIDs);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(setLoading(false));
-    console.log(loading);
-  };
 
   // const [favorites, setFavorites] = useState(
   //   JSON.parse(localStorage.getItem("favorites")) || []
@@ -60,41 +34,47 @@ const Main = () => {
   //   localStorage.setItem("favorites", JSON.stringify(newFavorites));
   // };
 
-  const getArtWorkBySearch = (API) => {
+  const getArts = (API) => {
     setLoading(true);
     axios
       .get(API)
       .then((res) => {
-        // setSearch((data) => [...data, res.data?.objectIDs]);
-        setSearch(res.data.objectIDs);
-        console.log(res.data.objectIDs);
-
-        // setData((denemearray) => res.data.objectIDs);
-        // console.log(denemearray);
-        // getSpecificArtWork();
+        // setData((data) => [...data, res.data]);
+        setData(res.data);
+        console.log(res.data);
       })
       .catch((error) => {
         console.log(error);
-      });
-    setLoading(false);
+      })
+      .finally(setLoading(false));
+    console.log(loading);
+  };
+
+  const result = () => {
+    setLoading(true);
+    axios
+      .get(searchAPI + searchValue)
+      .then((res) => {
+        setResults(data.results);
+        console.log(data.results);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(setLoading(false));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (searchValue) {
-      navigate("searchresult");
-      // getArtWorkBySearch(searchAPI + searchValue);
-      // setSearchValue("");
+      getArts(searchAPI + searchValue);
+      setSearchValue("");
+      result(searchValue);
     } else {
       alert("Please enter a text");
     }
     console.log(searchValue);
   };
-
-  // const handleSearch = (e) => {
-  //   setQuery(e.target.value);
-  //   setPageNumber(1);
-  // };
 
   return (
     <div style={{ position: "relative" }}>
@@ -164,10 +144,10 @@ const Main = () => {
           flexWrap: "wrap",
         }}
       >
-        {/* {data?.map((work) => (
-          <ArtCard key={work.id} {...work} />
-        ))} */}
-        {data?.map((eachData) => (
+        {results?.objectIDs?.map((result) => (
+          <div key={result.id}>{result}</div>
+        ))}
+        {data?.departments?.map((eachData) => (
           <div key={eachData.departmentId}>
             <div
               style={{

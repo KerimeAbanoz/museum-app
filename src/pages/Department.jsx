@@ -1,29 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import coverPhoto from "../assets/coverPhoto.png";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import SearchIcon from "@mui/icons-material/Search";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const defaultImage =
   "https://images.unsplash.com/photo-1581905764498-f1b60bae941a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=80";
 
-const searchAPI =
-  "https://collectionapi.metmuseum.org/public/collection/v1/search?q=";
+const departmentAPI =
+  "https://collectionapi.metmuseum.org/public/collection/v1/search?departmentId=";
+const objectAPI =
+  "https://collectionapi.metmuseum.org/public/collection/v1/objects/";
 
 const Department = () => {
   const [data, setData] = useState([]);
-  const [search, setSearch] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const { id } = useParams();
 
-  const getArtWorkBySearch = (API) => {
+  const getArtWorks = () => {
     setLoading(true);
     axios
-      .get(API)
+      .get(departmentAPI + id + "&q=cat")
       .then((res) => {
-        // setSearch((data) => [...data, res.data?.objectIDs]);
-        setSearch(res.data.objectIDs);
+        // setData((data) => [...data, res.data?.objectIDs]);
+        setData(res.data.objectIDs);
         console.log(res.data.objectIDs);
       })
       .catch((error) => {
@@ -31,6 +33,15 @@ const Department = () => {
       });
     setLoading(false);
   };
+
+  const getActualArtwork = () => {
+    setLoading(true);
+    axios.get(objectAPI + data);
+  };
+
+  useEffect(() => {
+    getArtWorks();
+  }, []);
 
   return (
     <div style={{ position: "relative" }}>
@@ -99,9 +110,6 @@ const Department = () => {
           flexWrap: "wrap",
         }}
       >
-        {/* {data?.map((work) => (
-          <ArtCard key={work.id} {...work} />
-        ))} */}
         {data?.map((eachData) => (
           <div key={eachData.departmentId}>
             <div
@@ -116,9 +124,7 @@ const Department = () => {
                 cursor: "pointer",
               }}
             >
-              <div
-                onClick={() => navigate("department/" + eachData.departmentId)}
-              >
+              <div onClick={() => navigate("detail/" + eachData.departmentId)}>
                 <img
                   style={{
                     objectFit: "cover",

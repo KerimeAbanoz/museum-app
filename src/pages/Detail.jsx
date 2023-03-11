@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import coverPhoto from "../assets/coverPhoto.png";
 
-const ArtDetail = () => {
+const Detail = () => {
   const API =
     "https://collectionapi.metmuseum.org/public/collection/v1/objects";
 
@@ -73,4 +73,4 @@ const ArtDetail = () => {
   );
 };
 
-export default ArtDetail;
+export default Detail;
