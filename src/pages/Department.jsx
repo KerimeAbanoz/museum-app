@@ -1,64 +1,21 @@
+import React, { useState } from "react";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import coverPhoto from "../assets/coverPhoto.png";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import SearchIcon from "@mui/icons-material/Search";
-import coverPhoto from "../assets/coverPhoto.png";
 import { useNavigate } from "react-router-dom";
-import Footer from "../components/Footer";
 
-const departmentAPI =
-  "https://collectionapi.metmuseum.org/public/collection/v1/departments";
-const searchAPI =
-  "https://collectionapi.metmuseum.org/public/collection/v1/search?q=";
 const defaultImage =
   "https://images.unsplash.com/photo-1581905764498-f1b60bae941a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=80";
 
-const Main = () => {
+const searchAPI =
+  "https://collectionapi.metmuseum.org/public/collection/v1/search?q=";
+
+const Department = () => {
   const [data, setData] = useState([]);
   const [search, setSearch] = useState([]);
-  const [searchValue, setSearchValue] = useState("");
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-
-  // const [dataIds, setDataIds] = useState([]);
-  useEffect(() => {
-    getDepartments(departmentAPI);
-
-    // getSpecificArtWork();
-  }, []);
-
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
-
-  const getDepartments = (API) => {
-    setLoading(true);
-    axios
-      .get(API)
-      .then((res) => {
-        // setDataIds((dataIds) => res.data);
-        // setData((data) => [...data, res.data]);
-        // setData(res?.data.department);
-        setData(res.data.departments);
-        // console.log(data);
-        console.log(res.data.objectIDs);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(setLoading(false));
-    console.log(loading);
-  };
-
-  // const [favorites, setFavorites] = useState(
-  //   JSON.parse(localStorage.getItem("favorites")) || []
-  // );
-
-  // const handleAddToFavorites = (item) => {
-  //   const newFavorites = [...favorites, item];
-  //   setFavorites(newFavorites);
-  //   localStorage.setItem("favorites", JSON.stringify(newFavorites));
-  // };
 
   const getArtWorkBySearch = (API) => {
     setLoading(true);
@@ -68,33 +25,12 @@ const Main = () => {
         // setSearch((data) => [...data, res.data?.objectIDs]);
         setSearch(res.data.objectIDs);
         console.log(res.data.objectIDs);
-
-        // setData((denemearray) => res.data.objectIDs);
-        // console.log(denemearray);
-        // getSpecificArtWork();
       })
       .catch((error) => {
         console.log(error);
       });
     setLoading(false);
   };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (searchValue) {
-      navigate("searchresult");
-      // getArtWorkBySearch(searchAPI + searchValue);
-      // setSearchValue("");
-    } else {
-      alert("Please enter a text");
-    }
-    console.log(searchValue);
-  };
-
-  // const handleSearch = (e) => {
-  //   setQuery(e.target.value);
-  //   setPageNumber(1);
-  // };
 
   return (
     <div style={{ position: "relative" }}>
@@ -109,11 +45,11 @@ const Main = () => {
           justifyContent: "center",
           padding: "0.5rem",
         }}
-        onSubmit={handleSubmit}
+        // onSubmit={(e) => handleSubmit(e)}
       >
         <div style={{ marginTop: "8rem" }}>
           <input
-            type="search"
+            type="text"
             placeholder="Search"
             style={{
               width: "20rem",
@@ -125,8 +61,8 @@ const Main = () => {
               margin: "0.5rem",
               boxShadow: "1px 1px 5px 1px #d1e3d8",
             }}
-            onChange={(e) => setSearchValue(e.target.value)}
-            value={searchValue}
+            // value={searchValue}
+            // onChange={(e) => setSearchValue(e.target.value)}
             // onChange={handleSearch}
           />
           <button
@@ -156,7 +92,6 @@ const Main = () => {
           </button>
         </div>
       </form>
-
       <div
         style={{
           display: "flex",
@@ -205,10 +140,8 @@ const Main = () => {
           </div>
         ))}
       </div>
-      <div style={{ paddingBottom: "30rem" }}></div>
-      <Footer />
     </div>
   );
 };
 
-export default Main;
+export default Department;

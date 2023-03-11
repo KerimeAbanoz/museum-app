@@ -26,7 +26,7 @@ const ArtDetail = () => {
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         backgroundAttachment: "fixed",
-        minHeight: "40vh",
+        minHeight: "30vh",
         display: "flex",
         justifyContent: "center",
         padding: "0.5rem",
