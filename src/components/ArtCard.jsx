@@ -1,8 +1,6 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-
-const { id } = useParams();
 
 const defaultImage =
   "https://images.unsplash.com/photo-1581905764498-f1b60bae941a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=80";
@@ -33,6 +31,7 @@ const ArtCard = ({
 }) => {
   const navigate = useNavigate();
 
+  const { id } = useParams();
   const [favorites, setFavorites] = useState(
     JSON.parse(localStorage.getItem("favorites")) || []
   );
