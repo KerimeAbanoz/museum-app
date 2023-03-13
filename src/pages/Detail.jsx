@@ -43,7 +43,6 @@ const Detail = () => {
           padding: "0.5rem",
         }}
       >
-        {" "}
         <div style={{ marginTop: "8rem" }}></div>
       </div>
 
