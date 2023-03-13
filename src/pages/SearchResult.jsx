@@ -3,7 +3,6 @@ import axios from "axios";
 import { useLocation } from "react-router-dom";
 import ArtCard from "../components/ArtCard";
 import coverPhoto from "../assets/coverPhoto.png";
-import SearchIcon from "@mui/icons-material/Search";
 
 const SearchResult = () => {
   const [results, setResults] = useState([]);
@@ -20,6 +19,7 @@ const SearchResult = () => {
     getSearch(location.state);
   }, []);
 
+  //? bu her bir sanat eserinin ID'sini getirir
   const getSearch = (e) => {
     setLoading(true);
     axios
@@ -34,8 +34,8 @@ const SearchResult = () => {
       .finally(setLoading(false));
   };
 
+  //? burada elde ettiğimiz ID Array'ini iterasyona tutarak her bir sanat eserini alıyoruz
   const getSearchedArts = (arr) => {
-    console.log(arr, "hoopaa");
     arr.forEach((id) => {
       setLoading(true);
       axios
@@ -67,46 +67,7 @@ const SearchResult = () => {
             padding: "0.5rem",
           }}
         >
-          <div style={{ marginTop: "8rem" }}>
-            <input
-              type="search"
-              placeholder="Search"
-              style={{
-                width: "20rem",
-                height: "2rem",
-                border: "none",
-                borderRadius: "6px",
-                outline: "2px solid transparent",
-                padding: "4px",
-                margin: "0.5rem",
-                boxShadow: "1px 1px 5px 1px #d1e3d8",
-              }}
-            />
-            <button
-              type="submit"
-              style={{
-                height: "2rem",
-                color: "#14532d",
-                backgroundColor: "transparent",
-                border: "none",
-                cursor: "pointer",
-              }}
-            >
-              <SearchIcon style={{ fontSize: "2rem", color: "#263963" }} />
-            </button>
-            {/* <button
-              style={{
-                // paddingTop: "1rem",
-                height: "2rem",
-                color: "#14532d",
-                backgroundColor: "transparent",
-                border: "none",
-                cursor: "pointer",
-              }}
-              >
-              <FilterAltIcon style={{ fontSize: "2rem", color: "#263963" }} />
-            </button> */}
-          </div>
+          <div style={{ marginTop: "8rem" }}></div>
         </form>
       </div>
 
@@ -117,18 +78,6 @@ const SearchResult = () => {
           flexWrap: "wrap",
         }}
       >
-        <div
-          style={{
-            backgroundImage: `url(${coverPhoto})`,
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-            backgroundAttachment: "fixed",
-            minHeight: "30vh",
-            display: "flex",
-            justifyContent: "center",
-            padding: "0.5rem",
-          }}
-        ></div>
         {searchResults?.map((result) => (
           <Fragment key={result.id}>
             <ArtCard {...result} />

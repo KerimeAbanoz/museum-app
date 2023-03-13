@@ -14,23 +14,11 @@ const Main = () => {
   const [data, setData] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [loading, setLoading] = useState(true);
-  const [results, setResults] = useState([]);
-  const [searchResults, setSearchResults] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     getDepartments(departmentAPI);
   }, []);
-
-  // const [favorites, setFavorites] = useState(
-  //   JSON.parse(localStorage.getItem("favorites")) || []
-  // );
-
-  // const handleAddToFavorites = (item) => {
-  //   const newFavorites = [...favorites, item];
-  //   setFavorites(newFavorites);
-  //   localStorage.setItem("favorites", JSON.stringify(newFavorites));
-  // };
 
   const getDepartments = (API) => {
     setLoading(true);
@@ -57,7 +45,7 @@ const Main = () => {
     } else {
       alert("Please enter a text");
     }
-    console.log(searchValue);
+    // console.log(searchValue);
   };
 
   return (

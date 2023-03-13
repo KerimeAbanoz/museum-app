@@ -16,7 +16,7 @@ const AppRouter = () => {
         <Route path="/department/:id" element={<Department />} />
         <Route path="/searchresult" element={<SearchResult />} />
         <Route path="/favourites" element={<Favourites />} />
-        <Route path="/detail" element={<Detail />} />
+        <Route path="/details/:id" element={<Detail />} />
       </Routes>
     </BrowserRouter>
   );

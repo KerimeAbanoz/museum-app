@@ -55,7 +55,7 @@ const ArtCard = ({
         cursor: "pointer",
       }}
     >
-      <div onClick={() => navigate("details/" + objectID)}>
+      <div onClick={() => navigate("/details/" + objectID)}>
         <img
           style={{ objectFit: "cover", height: "400px", maxWidth: "100%" }}
           loading="lazy"
